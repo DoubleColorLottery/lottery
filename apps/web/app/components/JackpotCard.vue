@@ -4,7 +4,7 @@
       <div class="header-imperial text-white -m-4 md:-m-6 mb-4 md:mb-6 p-4 md:p-6 relative">
         <h2 class="text-xl md:text-2xl font-bold flex items-center gap-3 relative z-10">
           <img src="/icon-jackpot.png" class="w-10 h-10 md:w-12 md:h-12 pulse-glow" alt="" />
-          <div class="text-xl md:text-2xl tracking-wide">{{ t(jackpotTitleKey) }}</div>
+          <div class="text-xl md:text-2xl tracking-wide">{{ totals ? t("app.totalAcrossRounds").replace("{rounds}", String(totals.rounds)) : t("app.roundPotTotal") }}</div>
         </h2>
       </div>
     </template>
@@ -28,9 +28,13 @@
 
       <div class="relative z-10">
         <div class="jackpot-display text-5xl md:text-8xl font-bold shimmer-gold">
-          <span v-if="isEstimated" class="text-[0.7em] align-top">~</span>{{ formattedPot }}
+          {{ totals ? formatBnbDisplay(BigInt(totals.roundPots)) : "—" }}
         </div>
         <div class="text-2xl md:text-3xl font-bold text-[#a1a1aa] mt-2 tracking-wider">BNB</div>
+        <p v-if="totalsError" class="mt-2 text-xs text-[#a1a1aa]">{{ t("app.totalsUnavailable") }}</p>
+        <div class="mt-5 text-base md:text-xl text-[#a1a1aa]">
+          {{ t(jackpotTitleKey) }}: <strong class="text-[#f5d066]"><span v-if="isEstimated">~</span>{{ formattedPot }} BNB</strong>
+        </div>
         <div
           v-if="hasPendingFees"
           class="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs md:text-sm text-[#a1a1aa]"
@@ -63,7 +67,10 @@
       </div>
     </div>
 
-    <LotteryTotals />
+    <div v-if="totals" class="mt-4 pt-4 border-t border-white/10 text-center text-sm text-[#a1a1aa] space-y-2">
+      <p>{{ t("app.totalTaxCollected") }}: <strong class="text-[#f5d066]">{{ formatBnbDisplay(BigInt(totals.taxCollected)) }} BNB</strong></p>
+      <p class="text-xs">{{ t("app.taxCollectedHelp") }}</p>
+    </div>
 
     <!-- Charity Donation Info -->
     <div class="mt-4 pt-4 border-t border-[rgba(255,255,255,0.08)]">
@@ -84,10 +91,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, onUnmounted } from "vue";
 import { formatBnbDisplay } from "../../composables/useDisplayFormat";
 import Card from "./ui/Card.vue";
-import LotteryTotals from "./LotteryTotals.vue";
+
 
 const props = defineProps<{
   confirmedPot: bigint;
@@ -100,6 +107,11 @@ const props = defineProps<{
   totalHolders: bigint;
   t: (key: string) => string;
 }>();
+
+const { data: totals, error: totalsError, refresh } = useFetch("/api/lottery-totals", { server: false, lazy: true });
+let totalsTimer: ReturnType<typeof setInterval> | undefined;
+onMounted(() => { totalsTimer = setInterval(() => { void refresh(); }, 60_000); });
+onUnmounted(() => { if (totalsTimer) clearInterval(totalsTimer); });
 
 const hasPendingFees = computed(() => props.pendingNativeFees > 0n || props.pendingFeeTokens > 0n);
 const isEstimated = computed(() => props.estimatedFeeTokenBnb > 0n);

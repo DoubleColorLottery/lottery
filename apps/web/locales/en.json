@@ -1,5 +1,6 @@
 {
   "app": {
+    "roundPotTotal": "Total round pots",
     "totalAcrossRounds": "Total over {rounds} rounds",
     "allocatedPrizesHelp": "Prizes allocated to winners, including unclaimed prizes.",
     "totalTaxCollected": "Total tax collected",

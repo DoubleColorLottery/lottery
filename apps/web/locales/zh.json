@@ -1,5 +1,6 @@
 {
   "app": {
+    "roundPotTotal": "累计奖池总额",
     "totalAcrossRounds": "累计 {rounds} 轮奖金",
     "allocatedPrizesHelp": "分配给中奖者的奖金，包含尚未领取的奖金。",
     "totalTaxCollected": "累计收取税费",
