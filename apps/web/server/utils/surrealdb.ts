@@ -115,6 +115,7 @@ export interface LiveActivityRecord {
   type: "claim" | "draw";
   blockNumber: number;
   logIndex: number;
+  transactionHash?: string;
   user?: string;
   roundId?: number;
   ticketIndex?: number;

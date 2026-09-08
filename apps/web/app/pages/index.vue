@@ -76,7 +76,7 @@
           />
 
           <!-- Round History Selector -->
-          <Card v-if="currentRound > 1n" variant="default">
+          <Card v-if="latestDrawnRoundId !== null" variant="default">
             <template #header>
               <div class="flex items-center justify-between pb-3 border-b border-[rgba(147,51,234,0.3)]">
                 <h2 class="text-lg md:text-xl font-bold text-[#f5f5f7] flex items-center gap-2 md:gap-3">
@@ -820,13 +820,16 @@ watch(currentPage, () => {
 // Fetch round data when selected
 watch(
   selectedRoundId,
-  async (roundId) => {
+  async (roundId, _previousRound, onCleanup) => {
+    let cancelled = false;
+    onCleanup(() => { cancelled = true; });
     if (roundId && roundId > 0) {
       roundDataLoading.value = true;
       try {
-        selectedRoundData.value = await getRoundResult(BigInt(roundId));
+        const result = await getRoundResult(BigInt(roundId));
+        if (!cancelled) selectedRoundData.value = result;
       } finally {
-        roundDataLoading.value = false;
+        if (!cancelled) roundDataLoading.value = false;
       }
     } else {
       selectedRoundData.value = null;
@@ -838,9 +841,9 @@ watch(
 // Auto-select the latest round that actually has winning numbers.
 watch(
   latestDrawnRoundId,
-  (newRound) => {
+  (newRound, previousLatestRound) => {
     if (newRound !== null && newRound >= 1n) {
-      if (selectedRoundId.value === null) {
+      if (selectedRoundId.value === null || (previousLatestRound !== null && previousLatestRound !== undefined && selectedRoundId.value === Number(previousLatestRound))) {
         selectedRoundId.value = Number(newRound);
       }
       else if (selectedRoundId.value > Number(newRound)) {

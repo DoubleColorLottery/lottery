@@ -9,6 +9,7 @@ const SUPPORTED_CHAINS = [1, 56, 137, 42161, 10, 8453];
 export interface ActivityItem {
   id: string;
   type: "claim" | "draw";
+  transactionHash?: string;
   timestamp: Date;
   blockNumber: bigint;
   user?: string;
@@ -23,6 +24,7 @@ export interface ActivityItem {
 interface LiveActivityItemResponse {
   id: string;
   type: "claim" | "draw";
+  transactionHash?: string;
   blockNumber: number;
   logIndex: number;
   user?: string;
@@ -113,6 +115,7 @@ export function useLiveActivity(lotteryAddress: string) {
   const hydrateItem = (item: LiveActivityItemResponse): ActivityItem => ({
     id: item.id,
     type: item.type,
+    transactionHash: item.transactionHash,
     timestamp: new Date(),
     blockNumber: BigInt(item.blockNumber),
     user: item.user,

@@ -56,7 +56,14 @@
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2 flex-wrap">
-                <span class="font-bold text-[#22c55e] text-sm">{{ t("app.prizeClaimed") || "Prize Claimed" }}</span>
+                <a
+                  v-if="item.transactionHash"
+                  :href="`https://bscscan.com/tx/${item.transactionHash}`"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-bold text-[#22c55e] text-sm underline underline-offset-2 hover:text-white"
+                >{{ t("app.prizeClaimed") || "Prize Claimed" }} ↗</a>
+                <span v-else class="font-bold text-[#22c55e] text-sm">{{ t("app.prizeClaimed") || "Prize Claimed" }}</span>
                 <span class="tier-badge" :class="`tier-${item.tier}`"> {{ t("app.tier") }} {{ item.tier }} </span>
               </div>
               <div class="text-xs text-[#a1a1aa] mt-1 flex items-center gap-2 flex-wrap">
