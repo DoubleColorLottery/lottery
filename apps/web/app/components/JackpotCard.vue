@@ -4,7 +4,7 @@
       <div class="header-imperial text-white -m-4 md:-m-6 mb-4 md:mb-6 p-4 md:p-6 relative">
         <h2 class="text-xl md:text-2xl font-bold flex items-center gap-3 relative z-10">
           <img src="/icon-jackpot.png" class="w-10 h-10 md:w-12 md:h-12 pulse-glow" alt="" />
-          <div class="text-xl md:text-2xl tracking-wide">{{ totals ? t("app.totalAcrossRounds").replace("{rounds}", String(totals.rounds)) : t("app.roundPotTotal") }}</div>
+          <div class="text-xl md:text-2xl tracking-wide">{{ totals ? t("app.totalAcrossRounds").replace("{rounds}", String(displayedRoundCount)) : t("app.roundPotTotal") }}</div>
         </h2>
       </div>
     </template>
@@ -28,7 +28,7 @@
 
       <div class="relative z-10">
         <div class="jackpot-display text-5xl md:text-8xl font-bold shimmer-gold">
-          {{ totals ? formatBnbDisplay(BigInt(totals.roundPots)) : "—" }}
+          {{ totals ? formatBnbDisplay(totalIncludingCurrent) : "—" }}
         </div>
         <div class="text-2xl md:text-3xl font-bold text-[#a1a1aa] mt-2 tracking-wider">BNB</div>
         <p v-if="totalsError" class="mt-2 text-xs text-[#a1a1aa]">{{ t("app.totalsUnavailable") }}</p>
@@ -112,6 +112,10 @@ const { data: totals, error: totalsError, refresh } = useFetch("/api/lottery-tot
 let totalsTimer: ReturnType<typeof setInterval> | undefined;
 onMounted(() => { totalsTimer = setInterval(() => { void refresh(); }, 60_000); });
 onUnmounted(() => { if (totalsTimer) clearInterval(totalsTimer); });
+
+const includesCurrentRound = computed(() => !!totals.value && props.currentRound > 0n && !totals.value.settledRoundIds.includes(props.currentRound.toString()));
+const displayedRoundCount = computed(() => totals.value ? totals.value.rounds + (includesCurrentRound.value ? 1 : 0) : 0);
+const totalIncludingCurrent = computed(() => BigInt(totals.value?.roundPots ?? 0) + (includesCurrentRound.value ? props.projectedPot : 0n));
 
 const hasPendingFees = computed(() => props.pendingNativeFees > 0n || props.pendingFeeTokens > 0n);
 const isEstimated = computed(() => props.estimatedFeeTokenBnb > 0n);

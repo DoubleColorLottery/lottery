@@ -11,6 +11,7 @@ export default defineCachedEventHandler(async () => {
   }
   const blockNumber = await publicClient.getBlockNumber({ cacheTime: 0 });
   let rounds = 0;
+  const settledRoundIds: string[] = [];
   let prizesAllocated = 0n;
   let roundPots = 0n;
   let flushed = 0n;
@@ -22,6 +23,7 @@ export default defineCachedEventHandler(async () => {
     ]);
     for (const log of settlements) {
       rounds++;
+      settledRoundIds.push(log.args.roundId.toString());
       prizesAllocated += log.args.stashedPot;
       roundPots += log.args.totalPot;
     }
@@ -34,6 +36,7 @@ export default defineCachedEventHandler(async () => {
   ]);
   return {
     rounds,
+    settledRoundIds,
     prizesAllocated: prizesAllocated.toString(),
     roundPots: roundPots.toString(),
     taxCollected: (flushed + vaultBalance + processorBalance).toString(),
