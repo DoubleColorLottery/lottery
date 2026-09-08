@@ -1,0 +1,51 @@
+name: "doublecolor"
+
+services:
+  web:
+    image: "flap-lottery-web:${IMAGE_TAG:-prelaunch}"
+    pull_policy: "build"
+    build:
+      context: "../.."
+      dockerfile: "Dockerfile"
+      args:
+        BUN_VERSION: "${BUN_VERSION:-1.3.14}"
+        USE_DOKPLOY_CRON: "1"
+        NUXT_PUBLIC_APP_MODE: "prelaunch"
+      platforms:
+        - "linux/amd64"
+    restart: "unless-stopped"
+    environment:
+      NODE_ENV: "production"
+      HOST: "0.0.0.0"
+      PORT: "7341"
+      NUXT_PUBLIC_APP_MODE: "prelaunch"
+      NUXT_PUBLIC_ENVIRONMENT: "production"
+      DISABLE_STARTUP_TASKS: "1"
+      USE_DOKPLOY_CRON: "1"
+    expose:
+      - "7341"
+    networks:
+      default: {}
+      dokploy-network: {}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
+    healthcheck:
+      test:
+        - "CMD"
+        - "bun"
+        - "-e"
+        - |
+          const response = await fetch('http://127.0.0.1:7341/api/health');
+          const body = await response.json().catch(() => null);
+          const checks = Object.fromEntries(Object.entries(body?.checks ?? {}).map(([name, check]) => [name, Boolean(check?.ok)]));
+          console.log(JSON.stringify({ httpStatus: response.status, status: body?.status, checks }));
+          if (!response.ok || body?.status !== 'ok') process.exit(1);
+      interval: "30s"
+      timeout: "10s"
+      retries: 5
+      start_period: "30s"
+
+networks:
+  dokploy-network:
+    external: true

@@ -1,0 +1,341 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "receive",
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "accountedQuote",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "description",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "flush",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "initialize",
+    "inputs": [
+      {
+        "name": "predictedTaxToken",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "quoteToken_",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "lottery_",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "lottery",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pendingRevenue",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "sync",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "recognized",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "taxToken",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "vaultQuoteToken",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "vaultSpecVersion",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "function",
+    "name": "vaultUISchema",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "schema",
+        "type": "tuple",
+        "internalType": "struct VaultUISchema",
+        "components": [
+          {
+            "name": "vaultType",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "methods",
+            "type": "tuple[]",
+            "internalType": "struct VaultMethodSchema[]",
+            "components": [
+              {
+                "name": "name",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "inputs",
+                "type": "tuple[]",
+                "internalType": "struct FieldDescriptor[]",
+                "components": [
+                  {
+                    "name": "name",
+                    "type": "string",
+                    "internalType": "string"
+                  },
+                  {
+                    "name": "fieldType",
+                    "type": "string",
+                    "internalType": "string"
+                  },
+                  {
+                    "name": "description",
+                    "type": "string",
+                    "internalType": "string"
+                  },
+                  {
+                    "name": "decimals",
+                    "type": "uint8",
+                    "internalType": "uint8"
+                  }
+                ]
+              },
+              {
+                "name": "outputs",
+                "type": "tuple[]",
+                "internalType": "struct FieldDescriptor[]",
+                "components": [
+                  {
+                    "name": "name",
+                    "type": "string",
+                    "internalType": "string"
+                  },
+                  {
+                    "name": "fieldType",
+                    "type": "string",
+                    "internalType": "string"
+                  },
+                  {
+                    "name": "description",
+                    "type": "string",
+                    "internalType": "string"
+                  },
+                  {
+                    "name": "decimals",
+                    "type": "uint8",
+                    "internalType": "uint8"
+                  }
+                ]
+              },
+              {
+                "name": "approvals",
+                "type": "tuple[]",
+                "internalType": "struct ApproveAction[]",
+                "components": [
+                  {
+                    "name": "tokenType",
+                    "type": "string",
+                    "internalType": "string"
+                  },
+                  {
+                    "name": "amountFieldName",
+                    "type": "string",
+                    "internalType": "string"
+                  }
+                ]
+              },
+              {
+                "name": "isInputArray",
+                "type": "bool",
+                "internalType": "bool"
+              },
+              {
+                "name": "isOutputArray",
+                "type": "bool",
+                "internalType": "bool"
+              },
+              {
+                "name": "isWriteMethod",
+                "type": "bool",
+                "internalType": "bool"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
+      {
+        "name": "version",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RevenueFlushed",
+    "inputs": [
+      {
+        "name": "lottery",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RevenueRecognized",
+    "inputs": [
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "accountedTotal",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "UnsupportedChain",
+    "inputs": [
+      {
+        "name": "chainId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  }
+]

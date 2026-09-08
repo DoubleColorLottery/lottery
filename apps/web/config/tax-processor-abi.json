@@ -1,0 +1,587 @@
+[
+  {
+    "type": "function",
+    "name": "commissionBps",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint16",
+        "internalType": "uint16"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "commissionQuoteBalance",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "commissionReceiver",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "converter",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "dispatch",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "dividendAddress",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "dividendQuoteBalance",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "dividendToken",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "dividendTokenBalance",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "feeConfig",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct PackedFeeConfig",
+        "components": [
+          {
+            "name": "marketBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "deflationBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "lpBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "dividendBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "feeRate",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "isWeth",
+            "type": "bool",
+            "internalType": "bool"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "feeConfigV2",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct PackedFeeConfigV2",
+        "components": [
+          {
+            "name": "marketBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "deflationBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "lpBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "dividendBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "feeRate",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "isWeth",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "commissionBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "dividendToken",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "feeQuoteBalance",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "feeReceiver",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "flapBlackHole",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getQuoteToken",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "initialize",
+    "inputs": [
+      {
+        "name": "params",
+        "type": "tuple",
+        "internalType": "struct TaxProcessorInitParams",
+        "components": [
+          {
+            "name": "quoteToken",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "router",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "feeReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "marketAddress",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "dividendAddress",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "taxToken",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "feeRate",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "marketBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "deflationBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "lpBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "dividendBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "dividendToken",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "commissionReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "commissionBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "converter",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "liqExpectedOutputAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "liqExpectedOutputAmount",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "lpQuoteBalance",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "marketAddress",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "marketQuoteBalance",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pendingDividendQuoteTokenBalance",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "processBondingCurveTax",
+    "inputs": [
+      {
+        "name": "quoteAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "processTaxTokens",
+    "inputs": [
+      {
+        "name": "taxAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "liqThresholdDirection",
+        "type": "int8",
+        "internalType": "int8"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "requiresMEVProtection",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "router",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "swapRegistry",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "taxToken",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "totalDividendTokenSent",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "totalQuoteAddedToLiquidity",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "totalQuoteSentToDividend",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "totalQuoteSentToMarketing",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "totalTokenAddedToLiquidity",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "weth",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  }
+]

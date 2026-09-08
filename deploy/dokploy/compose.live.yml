@@ -1,0 +1,81 @@
+name: doublecolor
+
+services:
+  surrealdb:
+    image: surrealdb/surrealdb:v3.2.0
+    restart: unless-stopped
+    user: "0:0"
+    command: [start, --user, root, --pass, "${SURREAL_PASS:?required}", "surrealkv:///var/lib/surrealdb/lottery.db"]
+    volumes:
+      - flap-data:/var/lib/surrealdb
+    healthcheck:
+      test: [CMD, /surreal, is-ready, --endpoint, "ws://127.0.0.1:8000"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  web:
+    image: flap-lottery-web:live
+    pull_policy: build
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      args:
+        USE_DOKPLOY_CRON: "0"
+        NUXT_PUBLIC_APP_MODE: live
+    restart: unless-stopped
+    depends_on:
+      surrealdb:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: "7341"
+      NUXT_PUBLIC_APP_MODE: live
+      NUXT_PUBLIC_SCREEN_MODE: "${NUXT_PUBLIC_SCREEN_MODE:-live}"
+      NUXT_PUBLIC_ENVIRONMENT: production
+      NUXT_PUBLIC_CHAIN_ID: "56"
+      NUXT_PUBLIC_CHAIN_NAME: BSC Mainnet
+      NUXT_PUBLIC_CHAIN_CURRENCY_SYMBOL: BNB
+      NUXT_PUBLIC_CHAIN_RPC_URL: "${NUXT_PUBLIC_CHAIN_RPC_URL:-https://bsc-dataseed.binance.org}"
+      NUXT_PUBLIC_CHAIN_BLOCK_EXPLORER_URL: https://bscscan.com
+      TOKEN_ADDRESS: "${TOKEN_ADDRESS:?required}"
+      LOTTERY_ADDRESS: "${LOTTERY_ADDRESS:?required}"
+      VAULT_ADDRESS: "${VAULT_ADDRESS:?required}"
+      NUXT_PUBLIC_TOKEN_ADDRESS: "${TOKEN_ADDRESS:?required}"
+      NUXT_PUBLIC_LOTTERY_ADDRESS: "${LOTTERY_ADDRESS:?required}"
+      NUXT_PUBLIC_VAULT_ADDRESS: "${VAULT_ADDRESS:?required}"
+      TOKEN_DEPLOYMENT_BLOCK: "${TOKEN_DEPLOYMENT_BLOCK:?required}"
+      LOTTERY_DEPLOYMENT_BLOCK: "${LOTTERY_DEPLOYMENT_BLOCK:?required}"
+      TRANSACTION_CONFIRMATIONS: "${TRANSACTION_CONFIRMATIONS:-3}"
+      RPC_URL: "${RPC_URL:?required}"
+      BSC_MAINNET_PRIVATE_KEY: "${BSC_MAINNET_PRIVATE_KEY:?required}"
+      ELIGIBILITY_SIGNER_PRIVATE_KEY: "${ELIGIBILITY_SIGNER_PRIVATE_KEY:?required}"
+      CRON_SECRET: "${CRON_SECRET:?required}"
+      SURREAL_URL: ws://surrealdb:8000
+      SURREAL_USER: root
+      SURREAL_PASS: "${SURREAL_PASS:?required}"
+      SURREAL_NS: lottery
+      SURREAL_DB: "${SURREAL_DB:?required}"
+      USE_DOKPLOY_CRON: "0"
+      DISABLE_STARTUP_TASKS: "0"
+      ENABLE_AUTO_VRF_RETRY: "0"
+    expose: ["7341"]
+    networks:
+      default: {}
+      dokploy-network: {}
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=dokploy-network
+    healthcheck:
+      test: [CMD, bun, -e, "const r=await fetch('http://127.0.0.1:7341/api/health');if(!r.ok||(await r.json()).status!=='ok')process.exit(1)"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+networks:
+  dokploy-network:
+    external: true
+volumes:
+  flap-data:

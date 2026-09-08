@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Foundry
+out/
+cache/
+broadcast/
+
+# Environment
+.launch/
+.env*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Nuxt build
+.nuxt/
+.output/
+dist/
+.data/
+
+# Server data
+apps/web/server/merkle-api/data/
+*.db
+
+# Logs
+*.log

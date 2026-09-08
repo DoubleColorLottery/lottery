@@ -1,0 +1,984 @@
+@import "tailwindcss";
+
+/* ============================================
+   Premium Luxury Dark Theme - 双色球
+   Traditional Chinese Aesthetic + Luxury
+   ============================================ */
+
+/* CSS Variables */
+:root {
+  /* Dark Backgrounds - Deep Imperial */
+  --bg-primary: #080810;
+  --bg-secondary: #0f0f18;
+  --bg-tertiary: #161622;
+  --bg-elevated: #1e1e2d;
+
+  /* Gold Accents - Imperial Gold */
+  --gold-primary: #d4af37;
+  --gold-light: #f5d066;
+  --gold-dark: #b8860b;
+  --gold-muted: rgba(212, 175, 55, 0.25);
+  --gold-glow: rgba(212, 175, 55, 0.15);
+
+  /* Chinese Red - Vermillion */
+  --red-primary: #c41e3a;
+  --red-light: #e63946;
+  --red-dark: #9a1830;
+  --red-deep: #8b0000;
+  --red-glow: rgba(196, 30, 58, 0.2);
+
+  /* Blue (for blue ball) */
+  --blue-primary: #1e90ff;
+  --blue-dark: #1a7fd9;
+
+  /* Green (success/claims) */
+  --green-primary: #22c55e;
+  --green-dark: #16a34a;
+
+  /* Text */
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-gold: rgba(212, 175, 55, 0.3);
+  --border-red: rgba(196, 30, 58, 0.3);
+}
+
+/* Global styles */
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Targeted transitions for interactive elements only (removed global * selector for performance) */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea,
+.transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-all {
+  transition-property: color, background-color, border-color, transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Custom scrollbar - dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}
+
+/* Premium serif font for headings */
+.font-serif {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+/* Bold display font for branding */
+.font-display {
+  font-family: "Bebas Neue", Impact, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* Gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-light), var(--gold-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Red gradient text */
+.text-red-gradient {
+  background: linear-gradient(135deg, var(--red-light), var(--red-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   Lottery Ball Styles - 3D without heavy shadows
+   ============================================ */
+
+.lottery-ball {
+  display: inline-grid;
+  place-items: center;
+  font-weight: 700;
+  border-radius: 50%;
+  position: relative;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+  padding-bottom: 0.2em;
+}
+
+.lottery-ball-red {
+  width: 3.2rem;
+  height: 3.2rem;
+  font-size: 0.875rem;
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, var(--red-light), var(--red-primary));
+  color: white;
+  border: 2px solid var(--red-dark);
+}
+
+.lottery-ball-blue {
+  width: 3.2rem;
+  height: 3.2rem;
+  font-size: 0.875rem;
+  background: radial-gradient(circle at 30% 30%, #60a5fa, var(--blue-primary), var(--blue-dark));
+  color: white;
+  border: 2px solid #1565c0;
+}
+
+.lottery-ball-sm {
+  width: 2.1rem;
+  height: 2.1rem;
+  font-size: 0.625rem;
+}
+
+.lottery-ball-lg {
+  width: 4.2rem;
+  height: 4.2rem;
+  font-size: 1.125rem;
+}
+
+/* Extra small phones (max 480px) - compact balls */
+@media (max-width: 480px) {
+  .lottery-ball-red,
+  .lottery-ball-blue {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.7rem;
+  }
+
+  .lottery-ball-sm {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.6rem;
+  }
+
+  .lottery-ball-lg {
+    width: 3rem;
+    height: 3rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small screens (640px+) - slightly larger */
+@media (min-width: 640px) {
+  .lottery-ball-red,
+  .lottery-ball-blue {
+    width: 3rem;
+    height: 3rem;
+    font-size: 0.9rem;
+  }
+
+  .lottery-ball-sm {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.7rem;
+  }
+
+  .lottery-ball-lg {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.15rem;
+  }
+}
+
+/* Medium screens (768px+) - full size */
+@media (min-width: 768px) {
+  .lottery-ball-red,
+  .lottery-ball-blue {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1rem;
+  }
+
+  .lottery-ball-sm {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.75rem;
+  }
+
+  .lottery-ball-lg {
+    width: 5rem;
+    height: 5rem;
+    font-size: 1.35rem;
+  }
+}
+
+/* ============================================
+   Card Styles
+   ============================================ */
+
+.card-dark {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+}
+
+.card-dark-elevated {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-gold);
+  border-radius: 1rem;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-primary);
+}
+
+/* ============================================
+   Animations - Subtle, no glow
+   ============================================ */
+
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    var(--gold-primary),
+    var(--gold-light),
+    var(--gold-primary),
+    var(--gold-light),
+    var(--gold-primary)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-position: center;
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Slide up */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+/* Spin */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Float - gentle bounce */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Ball stagger animation */
+.ball-animated:nth-child(1) {
+  animation-delay: 0s;
+}
+.ball-animated:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.ball-animated:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.ball-animated:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.ball-animated:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.ball-animated:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.ball-animated:nth-child(7) {
+  animation-delay: 0.6s;
+}
+
+/* Counter pop */
+@keyframes counter-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.counter-animate.changed {
+  animation: counter-pop 0.3s ease-out;
+}
+
+/* ============================================
+   Status Indicators
+   ============================================ */
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green-primary);
+  border-radius: 50%;
+}
+
+.status-live {
+  background: var(--green-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.status-pending {
+  background: var(--gold-primary);
+  color: var(--bg-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-disabled {
+  background: rgba(113, 113, 122, 0.15);
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid rgba(113, 113, 122, 0.2);
+}
+
+.status-waiting {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+  color: var(--gold-light);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--border-gold);
+  animation: pulseGoldBorder 2s ease-in-out infinite;
+}
+
+.status-ready {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
+  color: var(--green-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+  animation: pulseGreenGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGoldBorder {
+  0%,
+  100% {
+    border-color: var(--border-gold);
+    box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+  }
+  50% {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+  }
+}
+
+@keyframes pulseGreenGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.3);
+  }
+}
+
+/* ============================================
+   Jackpot Display
+   ============================================ */
+
+.jackpot-display {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+/* Borders */
+.border-gold {
+  border-color: var(--gold-primary);
+}
+
+.border-gold-subtle {
+  border-color: var(--border-gold);
+}
+
+/* Backgrounds */
+.bg-dark-primary {
+  background-color: var(--bg-primary);
+}
+
+.bg-dark-secondary {
+  background-color: var(--bg-secondary);
+}
+
+.bg-dark-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+.bg-dark-elevated {
+  background-color: var(--bg-elevated);
+}
+
+/* Text colors */
+.text-gold {
+  color: var(--gold-primary);
+}
+
+.text-gold-light {
+  color: var(--gold-light);
+}
+
+.text-muted {
+  color: var(--text-secondary);
+}
+
+/* Gold border accent */
+.gold-border-left {
+  border-left: 3px solid var(--gold-primary);
+}
+
+.gold-border-top {
+  border-top: 3px solid var(--gold-primary);
+}
+
+/* Press effect */
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Responsive breakpoints for lottery balls are defined above in the Lottery Ball Styles section */
+
+/* ============================================
+   Chinese Aesthetic Enhancements
+   ============================================ */
+
+/* Cloud pattern background overlay - static */
+.bg-clouds {
+  background-image: url("/pattern-clouds.webp");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+}
+
+/* Dragon watermark */
+.dragon-watermark {
+  background-image: url("/decor-dragon.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* Decorative border pattern - Chinese lattice style */
+.border-chinese {
+  border-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--gold-primary) 10%,
+      var(--gold-primary) 20%,
+      transparent 25%,
+      transparent 75%,
+      var(--gold-primary) 80%,
+      var(--gold-primary) 90%,
+      transparent 100%
+    )
+    1;
+}
+
+/* Corner ornament decoration */
+.corner-ornament::before,
+.corner-ornament::after {
+  content: "◆";
+  position: absolute;
+  color: var(--gold-primary);
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.corner-ornament::before {
+  top: 0.5rem;
+  left: 0.5rem;
+}
+
+.corner-ornament::after {
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+/* ============================================
+   Enhanced Animations
+   ============================================ */
+
+.pulse-glow {
+  filter: drop-shadow(0 0 6px var(--gold-muted));
+}
+
+/* Scale pulse for important numbers */
+@keyframes scalePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.scale-pulse {
+  animation: scalePulse 3s ease-in-out infinite;
+}
+
+/* Entrance slide from left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+/* Entrance slide from right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+/* Reveal animation */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.reveal {
+  animation: reveal 0.5s ease-out forwards;
+}
+
+/* Stagger children reveal */
+.stagger-reveal > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.stagger-reveal > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.stagger-reveal > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.stagger-reveal > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.stagger-reveal > *:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.stagger-reveal > *:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* ============================================
+   Luxury Card Effects
+   ============================================ */
+
+.card-luxury {
+  background: linear-gradient(145deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border-gold);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-luxury::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+
+/* Imperial header style */
+.header-imperial {
+  background: linear-gradient(135deg, var(--red-dark) 0%, var(--red-primary) 50%, var(--red-dark) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-imperial::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/pattern-clouds.webp");
+  background-size: 600px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.header-imperial::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/pattern-clouds.webp");
+  background-size: 300px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* Jackpot number glow - uses filter for compatibility with transparent text fill */
+.jackpot-glow {
+  filter: drop-shadow(0 0 20px var(--gold-muted)) drop-shadow(0 0 40px var(--gold-glow));
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+
+.hero-section {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    var(--bg-primary) 0%,
+    rgba(139, 0, 0, 0.2) 30%,
+    rgba(139, 0, 0, 0.25) 50%,
+    rgba(139, 0, 0, 0.2) 70%,
+    var(--bg-primary) 100%
+  );
+  overflow: hidden;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/pattern-clouds.webp");
+  background-size: 500px;
+  background-position: center;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/pattern-clouds.webp");
+  background-size: 300px;
+  background-position: center;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* Ornamental Chinese-style divider */
+.hero-ornament {
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  position: relative;
+}
+
+.hero-ornament::before,
+.hero-ornament::after {
+  content: "◆";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold-primary);
+  font-size: 8px;
+}
+
+.hero-ornament::before {
+  left: 30%;
+}
+
+.hero-ornament::after {
+  right: 30%;
+}
+
+.hero-ornament-bottom {
+  transform: rotate(180deg);
+}
+
+@media (min-width: 768px) {
+  .hero-ornament {
+    width: 300px;
+  }
+}
+
+.hero-dragon {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background-image: url("/decor-dragon.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.hero-dragon-left {
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-dragon-right {
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+/* ============================================
+   Lottery Ball Enhancements
+   ============================================ */
+
+.lottery-ball {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.lottery-ball:hover {
+  transform: scale(1.1);
+}
+
+.lottery-ball-red:hover {
+  box-shadow: 0 0 20px var(--red-glow);
+}
+
+.lottery-ball-blue:hover {
+  box-shadow: 0 0 20px rgba(30, 144, 255, 0.4);
+}
+
+/* Winning ball highlight */
+.ball-winner {
+  animation: winnerPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes winnerPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--gold-primary);
+  }
+  50% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+/* ============================================
+   Button Enhancements
+   ============================================ */
+
+.btn-gold-luxury {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-light) 100%);
+  color: var(--bg-primary);
+  font-weight: 700;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-gold-luxury::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-gold-luxury:hover::before {
+  left: 100%;
+}
+
+.btn-gold-luxury:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px var(--gold-muted);
+}
+
+/* ============================================
+   Responsive Improvements
+   ============================================ */
+
+@media (max-width: 640px) {
+  .hero-dragon {
+    width: 180px;
+    height: 180px;
+    opacity: 0.06;
+  }
+
+  .hero-dragon-left {
+    left: -40px;
+  }
+
+  .hero-dragon-right {
+    right: -40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-dragon {
+    width: 450px;
+    height: 450px;
+    opacity: 0.12;
+  }
+}
+
+/* Step card styling */
+.step-card {
+  background: linear-gradient(145deg, rgba(22, 22, 34, 0.7), rgba(15, 15, 24, 0.8));
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.step-card:hover {
+  transform: translateX(8px);
+  border-color: rgba(212, 175, 55, 0.5);
+  background: linear-gradient(145deg, rgba(30, 30, 45, 0.8), rgba(20, 20, 32, 0.9));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

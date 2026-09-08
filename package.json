@@ -1,0 +1,55 @@
+{
+  "name": "lottery-monorepo",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run --cwd apps/web dev",
+    "build": "bun run build:contracts && bun run build:web",
+    "build:web": "bun run --cwd apps/web build",
+    "build:contracts": "bun run --cwd packages/contracts build && bun run --cwd packages/contracts sync:abi",
+    "preview": "bun run --cwd apps/web preview",
+    "test": "bun run test:contracts && bun run test:web && bun run test:production",
+    "test:contracts": "bun run --cwd packages/contracts test",
+    "test:contracts:fork": "bun run --cwd packages/contracts test:fork",
+    "test:flap": "bun run --cwd packages/contracts test:flap && bun run --cwd apps/web test",
+    "test:flap:fork": "bun run --cwd packages/contracts test:flap:fork",
+    "verify:flap-port": "bun run --cwd packages/contracts verify:flap-port",
+    "verify:reliability": "bash scripts/verify-reliability.sh",
+    "test:web": "bun run --cwd apps/web test",
+    "test:production": "bun test tests",
+    "test:web:e2e:flap-eligibility": "bun run --cwd apps/web test:e2e:flap-eligibility",
+    "test:web:e2e:flap-settlement": "bun run --cwd apps/web test:e2e:flap-settlement",
+    "test:fork": "bun run test:flap:fork",
+    "check": "bun run build && bun run test && bun run audit:web-performance && bun run audit:dependencies && bun run audit:contracts",
+    "docker:build": "bash scripts/docker-compose.sh build",
+    "docker:up": "bash scripts/docker-compose.sh up --build",
+    "docker:down": "bash scripts/docker-compose.sh down",
+    "preflight:production": "bun scripts/production-preflight.ts",
+    "audit:contracts": "bun run --cwd packages/contracts audit:slither",
+    "audit:dependencies": "bun audit --audit-level=high",
+    "audit:web-performance": "bun scripts/check-web-performance.ts",
+    "deploy:flap:find-salt": "bun run --cwd packages/contracts deploy:flap:find-salt",
+    "deploy:flap:dry-run": "bun run --cwd packages/contracts deploy:flap:dry-run",
+    "deploy:prepare": "bun run --cwd packages/contracts build && bun scripts/launch/prepare.ts && bun scripts/launch/verify.ts",
+    "deploy:verify": "bun scripts/launch/verify.ts",
+    "deploy:metadata": "bun scripts/launch/metadata.ts",
+    "deploy:live": "bun scripts/launch/live.ts",
+    "test:launch:fork": "bun run --cwd packages/contracts build && bun scripts/launch/rehearse.ts",
+    "clean": "rm -rf .nuxt .output out cache broadcast node_modules/.cache/nuxt apps/web/.nuxt apps/web/.output apps/web/dist apps/web/.data apps/web/node_modules/.cache/nuxt packages/contracts/out packages/contracts/cache packages/contracts/broadcast",
+    "postinstall": "bun run --cwd apps/web postinstall"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher"
+  ],
+  "dependencies": {
+    "browserslist": "^4.28.9"
+  },
+  "overrides": {
+    "browserslist": "4.28.9"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "双色球",
+  "symbol": "双色球",
+  "description": "双色球 powers the DoubleColor.fun lottery on BNB Chain. Each bonding-curve trade has 2% token tax plus a 1% Flap fee, totaling 3% per side. After DEX migration, pool fees are separate. Token tax funds BNB prizes, charity and VRF through the Flap vault. Eligible holders use server-signed proofs; draw randomness comes from Chainlink VRF. No guaranteed returns.",
+  "website": "https://doublecolor.fun",
+  "twitter": null,
+  "telegram": null,
+  "creator": "0x518471B3B9696b6340C245D45a1C9428036f3c2a",
+  "imagePath": "apps/web/public/logo.png",
+  "cid": "bafkreienhorncxih4dentinzg5vqjxejtcyri7osilnxm5yrt5ec7uunjm"
+}

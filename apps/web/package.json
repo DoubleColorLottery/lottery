@@ -1,0 +1,32 @@
+{
+  "name": "@lottery/web",
+  "version": "3.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test": "bun test ./test/integration/prize-calculation.test.ts ./test/integration/api-validation.test.ts ./test/integration/display-format.test.ts ./test/integration/rpc-bounds.test.ts ./test/integration/worker-runner.test.ts ./test/integration/task-lock.test.ts ./test/integration/surrealdb-client.test.ts ./test/integration/settlement-state.test.ts ./test/integration/round-state.test.ts ./test/integration/wallet-core.test.ts ./test/integration/live-activity.test.ts ./test/integration/eligibility.test.ts ./test/integration/ticket-derivation.test.ts ./test/integration/cron-response.test.ts ./test/integration/winner-projection.test.ts",
+    "test:integration": "bun run test",
+    "test:e2e:flap-eligibility": "bun test ./test/integration/flap-eligibility-db-e2e.test.ts",
+    "test:e2e:flap-settlement": "bun test ./test/integration/flap-settlement-e2e.test.ts"
+  },
+  "dependencies": {
+    "@nuxt/fonts": "^0.14.0",
+    "@nuxt/ui": "^4.11.0",
+    "ethers": "^6.17.0",
+    "nuxt": "^4.5.2",
+    "surrealdb": "^2.0.8",
+    "tailwindcss": "^4.3.3",
+    "viem": "^2.55.19",
+    "vue": "^3.5.41"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/bun": "1.3.14",
+    "typescript": "^5.9.3"
+  }
+}

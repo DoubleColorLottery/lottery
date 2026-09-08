@@ -1,0 +1,22 @@
+{
+  "name": "@lottery/contracts",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bash script/foundry.sh forge build",
+    "test": "bash script/foundry.sh forge test",
+    "test:fork": "bash script/foundry.sh forge test --no-match-contract '^$' --match-contract '.*ForkTest'",
+    "test:flap": "bash script/foundry.sh forge test --match-contract 'Flap(Lottery|RevenueVault)Test' -vv",
+    "test:flap:fork": "bash script/foundry.sh forge test --no-match-contract '^$' --match-contract FlapVaultPortalForkTest -vv",
+    "verify:flap-port": "bash script/verify-flap-port.sh",
+    "deploy:flap:find-salt": "bash script/foundry.sh forge script script/FindFlapSalt.s.sol:FindFlapSalt --rpc-url bsc_mainnet -vv",
+    "deploy:flap:dry-run": "bash script/foundry.sh forge script script/DeployFlapVaultPort.s.sol:DeployFlapVaultPort --rpc-url bsc_mainnet -vv",
+    "audit:slither": "bash script/slither.sh",
+    "sync:abi": "bash script/sync-flap-abi.sh"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "5.4.0",
+    "@openzeppelin/contracts-upgradeable": "4.9.6"
+  }
+}
