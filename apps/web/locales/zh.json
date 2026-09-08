@@ -1,5 +1,11 @@
 {
   "app": {
+    "totalAcrossRounds": "累计 {rounds} 轮奖金",
+    "allocatedPrizesHelp": "分配给中奖者的奖金，包含尚未领取的奖金。",
+    "totalTaxCollected": "累计收取税费",
+    "taxCollectedHelp": "彩票 BNB 收入，包含待转入金额。不含 Flap 手续费和未兑换的税费代币。",
+    "totalsUnavailable": "累计数据暂时无法获取。",
+
     "title": "双色球",
     "connect": "连接钱包",
     "disconnect": "断开",

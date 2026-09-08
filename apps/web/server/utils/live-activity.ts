@@ -1,8 +1,8 @@
 import { parseAbiItem, type Address } from "viem";
 import { LOTTERY_ADDRESS, publicClient } from "./contract";
+import { serverConfig } from "./config";
 import { replaceLiveActivity, type LiveActivityRecord } from "./surrealdb";
 
-const DEFAULT_LOOKBACK_BLOCKS = 2_000n;
 const INITIAL_LOG_SCAN_WINDOW_BLOCKS = 2_000n;
 const MIN_LOG_SCAN_WINDOW_BLOCKS = 64n;
 const MAX_STORED_ITEMS = 100;
@@ -67,8 +67,9 @@ export async function scanRecentLiveActivity(limit: number = MAX_STORED_ITEMS, s
   latestBlock: number;
   items: LiveActivityItem[];
 }> {
-  const latestBlock = await publicClient.getBlockNumber();
-  const fromBlock = latestBlock > DEFAULT_LOOKBACK_BLOCKS ? latestBlock - DEFAULT_LOOKBACK_BLOCKS : 0n;
+  const latestBlock = await publicClient.getBlockNumber({ cacheTime: 0 });
+  if (serverConfig.lotteryDeploymentBlock <= 0) throw new Error("LOTTERY_DEPLOYMENT_BLOCK must be configured");
+  const fromBlock = BigInt(serverConfig.lotteryDeploymentBlock);
   const address = LOTTERY_ADDRESS as Address;
   const items: LiveActivityItem[] = [];
   let windowToBlock = latestBlock;

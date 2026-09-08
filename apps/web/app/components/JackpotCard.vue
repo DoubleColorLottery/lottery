@@ -63,6 +63,8 @@
       </div>
     </div>
 
+    <LotteryTotals />
+
     <!-- Charity Donation Info -->
     <div class="mt-4 pt-4 border-t border-[rgba(255,255,255,0.08)]">
       <a
@@ -85,6 +87,7 @@
 import { computed } from "vue";
 import { formatBnbDisplay } from "../../composables/useDisplayFormat";
 import Card from "./ui/Card.vue";
+import LotteryTotals from "./LotteryTotals.vue";
 
 const props = defineProps<{
   confirmedPot: bigint;

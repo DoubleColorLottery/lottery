@@ -1,5 +1,11 @@
 {
   "app": {
+    "totalAcrossRounds": "Total over {rounds} rounds",
+    "allocatedPrizesHelp": "Prizes allocated to winners, including unclaimed prizes.",
+    "totalTaxCollected": "Total tax collected",
+    "taxCollectedHelp": "Lottery BNB revenue, including pending transfers. Excludes Flap fees and unsold tax tokens.",
+    "totalsUnavailable": "Lifetime totals are temporarily unavailable.",
+
     "title": "Double Color Ball Lottery",
     "connect": "Connect Wallet",
     "disconnect": "Disconnect",
