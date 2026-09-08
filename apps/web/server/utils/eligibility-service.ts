@@ -146,14 +146,14 @@ async function getEffectiveExclusions(
   return excluded;
 }
 
-export async function buildAndPersistEligibilityDraft(context?: TaskRunContext): Promise<EligibilityDraft> {
+async function readCurrentEligibility(context?: TaskRunContext) {
   await context?.checkpoint("before building eligibility draft");
   if (serverConfig.tokenDeploymentBlock <= 0 || serverConfig.lotteryDeploymentBlock <= 0) {
     throw new Error("TOKEN_DEPLOYMENT_BLOCK and LOTTERY_DEPLOYMENT_BLOCK must be configured");
   }
 
   const [latestBlock, currentRoundId, eligibilityConfirmations] = await Promise.all([
-    publicClient.getBlockNumber(),
+    publicClient.getBlockNumber({ cacheTime: 0 }),
     publicClient.readContract({ address: LOTTERY_ADDRESS, abi: lotteryAbi, functionName: "currentRoundId" }) as Promise<bigint>,
     publicClient.readContract({
       address: LOTTERY_ADDRESS,
@@ -211,6 +211,22 @@ export async function buildAndPersistEligibilityDraft(context?: TaskRunContext):
   if (!canonicalBlock.hash || canonicalBlock.hash.toLowerCase() !== block.hash.toLowerCase()) {
     throw new Error(`Eligibility block ${eligibilityBlock} changed while the balance index was being built`);
   }
+  return { roundId, eligibilityBlock, block: { ...block, hash: block.hash }, balances, excluded };
+}
+
+/** Current confirmed balances for display. Never publishes or changes a round manifest. */
+export async function getLiveHolderCounts() {
+  const { eligibilityBlock, balances, excluded } = await readCurrentEligibility();
+  const entries = buildEligibilityEntries(balances, excluded);
+  return {
+    blockNumber: eligibilityBlock,
+    eligibleHolders: BigInt(entries.length),
+    tokenHolders: BigInt([...balances.values()].filter(balance => balance > 0n).length),
+  };
+}
+
+export async function buildAndPersistEligibilityDraft(context?: TaskRunContext): Promise<EligibilityDraft> {
+  const { roundId, eligibilityBlock, block, balances, excluded } = await readCurrentEligibility(context);
   await context?.checkpoint("before publishing eligibility balance index");
   await replaceEligibilityBalanceIndex({
     token: TOKEN_ADDRESS,

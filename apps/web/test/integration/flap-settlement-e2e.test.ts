@@ -81,6 +81,27 @@ describe("Flap settlement E2E", () => {
     }
   }, 60_000);
 
+  test("live holder counts follow transfers without publishing an index or starting a round", async () => {
+    const service = await import("../../server/utils/eligibility-service");
+    await fixture.client.request({ method: "anvil_mine", params: ["0x20"] });
+    const beforeIndex = await surrealModule.getEligibilityBalanceIndex(fixture.tokenAddress);
+    const before = await service.getLiveHolderCounts();
+    expect(before.eligibleHolders).toBe(1n);
+    const hash = await fixture.wallet.writeContract({
+      address: fixture.tokenAddress,
+      abi: [{ type: "function", name: "transfer", stateMutability: "nonpayable", inputs: [{ name: "to", type: "address" }, { name: "value", type: "uint256" }], outputs: [{ type: "bool" }] }],
+      functionName: "transfer",
+      args: ["0x1111111111111111111111111111111111111111", TICKET_COST],
+    });
+    await fixture.client.waitForTransactionReceipt({ hash });
+    await fixture.client.request({ method: "anvil_mine", params: ["0x20"] });
+    const after = await service.getLiveHolderCounts();
+    expect(after.eligibleHolders).toBe(2n);
+    expect(after.tokenHolders).toBe(2n);
+    expect(await surrealModule.getEligibilityBalanceIndex(fixture.tokenAddress)).toEqual(beforeIndex);
+    expect(await contractModule.getCurrentRoundId()).toBe(0n);
+  });
+
   test("validates the frozen manifest and publishes the mined settlement projection", async () => {
     const holder = fixture.account.address;
     const entries = [{ account: holder, eligibleBalance: TICKET_COST, ticketCount: 1n }];

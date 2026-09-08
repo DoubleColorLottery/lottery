@@ -302,7 +302,7 @@ export async function getRoundSettlementMetadata(
     throw new Error(`RoundDrawn event not found for round ${roundId}`);
   }
 
-  const latestBlock = await publicClient.getBlockNumber();
+  const latestBlock = await publicClient.getBlockNumber({ cacheTime: 0 });
   let settlementLog: { transactionHash: Hex | null; blockNumber: bigint | null } | undefined;
 
   for (let fromBlock = drawBlock; fromBlock <= latestBlock; fromBlock += SETTLEMENT_LOG_WINDOW) {

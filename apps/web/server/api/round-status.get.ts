@@ -1,5 +1,6 @@
 import { formatEther } from "viem";
 import { getJackpotProjection, getLotteryOverview, getRound, getRounds, isSettlerConfigured } from "../utils/contract";
+import { getLiveHolderCounts } from "../utils/eligibility-service";
 import { buildRoundState, findRecentDrawnRoundIds } from "../utils/round-state";
 
 function serializeRound(round: Awaited<ReturnType<typeof getRound>>) {
@@ -27,7 +28,7 @@ function serializeRound(round: Awaited<ReturnType<typeof getRound>>) {
  */
 export default defineCachedEventHandler(async () => {
   try {
-    const overview = await getLotteryOverview();
+    const [overview, holders] = await Promise.all([getLotteryOverview(), getLiveHolderCounts()]);
     const jackpot = await getJackpotProjection(overview.totalPot);
     const currentContractRound = overview.currentRoundId > 0n ? await getRound(overview.currentRoundId) : null;
     const recentDrawnRoundIds = await findRecentDrawnRoundIds(overview.currentRoundId, currentContractRound, getRounds);
@@ -48,7 +49,10 @@ export default defineCachedEventHandler(async () => {
       currentPotEth: formatEther(overview.totalPot),
       lotteryInterval: overview.lotteryInterval.toString(),
       lastLotteryBlock: overview.lastLotteryBlock.toString(),
-      totalHolders: overview.totalHolders.toString(),
+      totalHolders: holders.eligibleHolders.toString(),
+      totalTokenHolders: holders.tokenHolders.toString(),
+      holdersBlock: holders.blockNumber.toString(),
+      roundEligibleHolders: overview.totalHolders.toString(),
       currentBlock: overview.currentBlock.toString(),
       jackpot: {
         confirmedPot: jackpot.confirmedPot.toString(),

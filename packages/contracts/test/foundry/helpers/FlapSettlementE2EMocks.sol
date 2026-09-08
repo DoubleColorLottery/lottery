@@ -8,6 +8,8 @@ interface RawVrfConsumer {
 }
 
 contract FlapSettlementE2EToken is ERC20 {
+    address public constant taxProcessor = address(0);
+    address public constant mainPool = address(0);
     constructor() ERC20("Settlement E2E Token", "SETTLE") {
         _mint(msg.sender, 1_000_000_000 ether);
     }
