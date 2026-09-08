@@ -106,6 +106,8 @@ const lastLotteryBlock = ref(0n);
 const currentBlock = ref(0n);
 const totalHolders = ref(0n);
 const canStartLottery = ref(false);
+const settlementPending = ref(false);
+const drawInProgress = ref(false);
 const lastFetchTime = ref(0);
 const isInitialLoad = ref(true);
 const isFetching = ref(false);
@@ -150,6 +152,7 @@ interface RoundStatusResponse {
   recentDrawnRoundIds?: number[];
   inProgress: boolean;
   settlerConfigured: boolean;
+  round?: { needsSettlement: boolean } | null;
   lotteryEnabled: boolean;
   canStartLottery?: boolean;
   blocksUntilDraw?: string;
@@ -241,6 +244,8 @@ export const useLottery = () => {
       totalHolders.value = BigInt(response.totalHolders);
       currentBlock.value = BigInt(response.currentBlock);
       canStartLottery.value = response.canStartLottery ?? false;
+      settlementPending.value = response.round?.needsSettlement ?? false;
+      drawInProgress.value = response.inProgress;
       lastFetchTime.value = Date.now();
 
       // Fetch user data if connected
@@ -833,6 +838,8 @@ export const useLottery = () => {
     userTicketCount: readonly(userTicketCount),
     totalHolders: readonly(totalHolders),
     canStartLottery: readonly(canStartLottery),
+    settlementPending: readonly(settlementPending),
+    drawInProgress: readonly(drawInProgress),
     lotteryInterval: readonly(lotteryInterval),
     blocksUntilDraw,
     potInBNB,

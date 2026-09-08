@@ -2,7 +2,7 @@
   <div class="countdown-timer card-luxury">
     <Transition name="timer-fade" mode="out-in">
       <div
-        v-if="timeRemaining > 0"
+        v-if="timeRemaining > 0 && !props.settlementPending && !props.drawInProgress"
         key="countdown"
         class="header-imperial rounded-xl p-5 md:p-6 relative overflow-hidden"
       >
@@ -64,10 +64,10 @@
             <img src="/icon-slot.png" class="w-20 h-20 md:w-24 md:h-24 mx-auto" alt="" />
           </div>
           <div class="text-white text-xl md:text-2xl font-bold tracking-wide ready-text">
-            {{ props.drawReady ? t("app.readyToDraw") : t("app.drawPending") }}
+            {{ props.settlementPending ? t("app.settlementPending") : props.drawInProgress ? t("app.drawInProgress") : props.drawReady ? t("app.readyToDraw") : t("app.drawPending") }}
           </div>
           <p class="mt-3 text-sm text-[#d4af37]">
-            {{ t("app.drawStartsAutomatically") }}
+            {{ props.settlementPending ? t("app.settlementPendingDetails") : props.drawInProgress ? t("app.drawInProgressDetails") : t("app.drawStartsAutomatically") }}
           </p>
         </div>
       </div>
@@ -83,6 +83,8 @@ const props = defineProps<{
   blocksRemaining: bigint;
   blockTime?: number; // Average block time in seconds (default: 3 for BSC)
   drawReady?: boolean;
+  settlementPending?: boolean;
+  drawInProgress?: boolean;
   totalBlocks?: bigint;
 }>();
 

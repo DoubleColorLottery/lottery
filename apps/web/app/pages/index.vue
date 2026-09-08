@@ -520,6 +520,8 @@
             :blocks-remaining="blocksUntilDraw"
             :total-blocks="lotteryInterval"
             :draw-ready="canStartLottery"
+            :settlement-pending="settlementPending"
+            :draw-in-progress="drawInProgress"
           />
 
           <!-- User Stats -->
@@ -641,6 +643,8 @@ const {
   loading,
   lotteryEnabled,
   canStartLottery,
+  settlementPending,
+  drawInProgress,
   lotteryInterval,
   currentRound,
   latestDrawnRoundId,

@@ -33,9 +33,12 @@ COPY --from=build --chown=bun:bun /app/apps/web/.output /app/apps/web/.output
 COPY --from=build --chown=bun:bun /app/apps/web/public /app/apps/web/public
 COPY --from=build --chown=bun:bun /app/apps/web/package.json /app/apps/web/package.json
 COPY --from=build --chown=bun:bun /app/apps/web/server/workers /app/apps/web/server/workers
+COPY --from=build --chown=bun:bun /app/apps/web/server/utils/ticketDerivation.ts /app/apps/web/server/utils/ticketDerivation.ts
+COPY --from=build --chown=bun:bun /app/scripts/check-ticket-workers.ts /app/scripts/check-ticket-workers.ts
 
 EXPOSE 7341
 
 USER bun
+RUN bun scripts/check-ticket-workers.ts
 
 CMD ["bun", "apps/web/.output/server/index.mjs"]
